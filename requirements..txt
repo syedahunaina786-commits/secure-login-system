@@ -1,0 +1,16 @@
+# --- Web framework & ASGI server ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+
+# --- Templating & form parsing ---
+jinja2>=3.1
+python-multipart>=0.0.9
+
+# --- Password hashing (bcrypt backend) ---
+passlib>=1.7.4
+# bcrypt is pinned: >=4.1 removed an attribute passlib probes for,
+# which triggers noisy (harmless) warnings.
+bcrypt==4.0.1
+
+# --- JWT signing / verification ---
+PyJWT>=2.8

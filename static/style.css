@@ -1,0 +1,216 @@
+/* ============================================================
+   SecureAuth — Global dark theme
+   Shared by the login / register / dashboard pages.
+   Palette: deep navy-black + violet-to-cyan gradient accents.
+   ============================================================ */
+
+:root {
+    /* Surfaces */
+    --bg: #070b14;
+    --card: rgba(17, 24, 39, 0.72);
+    --border: rgba(148, 163, 184, 0.14);
+    --border-strong: rgba(148, 163, 184, 0.30);
+
+    /* Text */
+    --text: #e8edf7;
+    --muted: #8e9bb3;
+
+    /* Accents */
+    --violet: #7c5cff;
+    --cyan: #22d3ee;
+    --gradient: linear-gradient(135deg, #7c5cff 0%, #22d3ee 100%);
+
+    /* Feedback */
+    --success: #34d399;
+    --danger: #f87171;
+    --info: #38bdf8;
+
+    /* Shape & type */
+    --radius: 18px;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-display: "Sora", "Inter", system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { color-scheme: dark; scrollbar-color: #1e293b transparent; }
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Ambient background orbs --------------------------------- */
+.orb {
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(95px);
+    opacity: 0.55;
+    pointer-events: none;
+}
+.orb--violet { width: 480px; height: 480px; top: -150px; left: -130px; background: rgba(124, 92, 255, 0.34); }
+.orb--cyan   { width: 430px; height: 430px; bottom: -150px; right: -110px; background: rgba(34, 211, 238, 0.20); }
+
+::selection { background: rgba(124, 92, 255, 0.45); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 8px; }
+
+/* ============================================================
+   Auth pages (login + register)
+   ============================================================ */
+.auth-wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 2.5rem 1rem;
+}
+
+.auth-card {
+    width: min(430px, 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 2.5rem 2.25rem;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 24px 70px rgba(2, 6, 23, 0.6);
+}
+/* Gradient hairline along the top edge of the card */
+.auth-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient);
+}
+
+.brand { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.75rem; }
+.brand-mark {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border-radius: 13px;
+    background: var(--gradient);
+    color: #0b1020;
+    box-shadow: 0 8px 24px rgba(124, 92, 255, 0.4);
+}
+.brand-mark svg { width: 22px; height: 22px; }
+.brand-name { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.02em; }
+
+.auth-card h1 { font-family: var(--font-display); font-size: 1.65rem; margin-bottom: 0.4rem; }
+.auth-sub { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.5rem; }
+
+/* ---- Form fields ---------------------------------------------- */
+.field { margin-bottom: 1.1rem; }
+.field label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.input-wrap { position: relative; display: flex; align-items: center; }
+.input-icon {
+    position: absolute; left: 14px;
+    width: 18px; height: 18px;
+    color: var(--muted);
+    pointer-events: none;
+}
+
+.input-wrap input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 2.9rem;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: rgba(7, 11, 20, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.input-wrap--toggle input { padding-right: 3rem; }
+
+.input-wrap input::placeholder { color: rgba(142, 155, 179, 0.5); }
+.input-wrap input:focus {
+    outline: none;
+    border-color: rgba(124, 92, 255, 0.65);
+    box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.16);
+    background: rgba(7, 11, 20, 0.85);
+}
+
+.input-toggle {
+    position: absolute; right: 8px;
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border: 0; border-radius: 9px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+}
+.input-toggle:hover { color: var(--text); background: rgba(148, 163, 184, 0.1); }
+.input-toggle.is-active { color: var(--cyan); }
+.input-toggle svg { width: 18px; height: 18px; }
+
+/* ---- Buttons ---------------------------------------------------- */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font: inherit; font-weight: 600;
+    border: 0; border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn--primary {
+    width: 100%;
+    margin-top: 0.35rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.98rem;
+    color: #0b1020;
+    background: var(--gradient);
+    box-shadow: 0 10px 30px rgba(124, 92, 255, 0.35);
+}
+.btn--primary:hover { transform: translateY(-1px); box-shadow: 0 14px 36px rgba(124, 92, 255, 0.45); }
+.btn--primary:active { transform: translateY(0); }
+
+/* ---- Alerts ------------------------------------------------------- */
+.alert {
+    margin-bottom: 1.1rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    border: 1px solid;
+    border-radius: 12px;
+}
+.alert--danger  { color: #fecaca; background: rgba(248, 113, 113, 0.09); border-color: rgba(248, 113, 113, 0.35); }
+.alert--success { color: #bbf7d0; background: rgba(52, 211, 153, 0.09); border-color: rgba(52, 211, 153, 0.35); }
+.alert--info    { color: #bae6fd; background: rgba(56, 189, 248, 0.09); border-color: rgba(56, 189, 248, 0.35); }
+
+.alert-list { margin: 0.35rem 0 0 1.1rem; }
+.alert-list li + li { margin-top: 0.25rem; }
+
+/* ---- Below the card ------------------------------------------------ */
+.auth-alt { margin-top: 1.5rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
+.auth-alt a { color: var(--cyan); font-weight: 600; text-decoration: none; }
+.auth-alt a:hover { text-decoration: underline; }
+
+.auth-foot {
+    color: #55617a;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}

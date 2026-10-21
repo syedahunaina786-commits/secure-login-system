@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · SecureAuth</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/dashboard.css') }}">
+</head>
+<body>
+    <!-- Ambient background orbs -->
+    <div class="orb orb--violet"></div>
+    <div class="orb orb--cyan"></div>
+
+    <nav class="topbar">
+        <div class="topbar__brand">
+            <div class="brand-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <span>SecureAuth</span>
+        </div>
+        <div class="topbar__user">
+            <span class="avatar">{{ username[0] | upper }}</span>
+            <span class="topbar__username">{{ username }}</span>
+            <form method="post" action="/logout">
+                <button type="submit" class="btn btn--ghost">Log out</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="dash">
+        <header class="dash-hero">
+            <p class="dash-kicker">Authenticated · JWT valid</p>
+            <h1>Welcome back, <span class="grad-text">{{ username }}</span></h1>
+            <p class="dash-sub">
+                This page is protected: the server verified your JWT cookie before
+                rendering it. The session data below comes straight from the token claims.
+            </p>
+        </header>
+
+        <section class="stat-grid">
+            <article class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h3>Account</h3>
+                <dl>
+                    <div><dt>Username</dt><dd>{{ username }}</dd></div>
+                    <div><dt>Email</dt><dd>{{ email }}</dd></div>
+                    <div><dt>Member since</dt><dd>{{ member_since }}</dd></div>
+                </dl>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>Session</h3>
+                <dl>
+                    <div><dt>Method</dt><dd>JWT · HS256</dd></div>
+                    <div><dt>Issued at</dt><dd>{{ issued_at }}</dd></div>
+                    <div><dt>Expires at</dt><dd>{{ expires_at }}</dd></div>
+                </dl>
+<div class="meter"><span style="width: {{ session_percent }}%;"></span></div>
+                <p class="meter-note">{{ minutes_left }} minute(s) of session left</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Security</h3>
+                <dl>
+                    <div><dt>Password storage</dt><dd>bcrypt · salted</dd></div>
+                    <div><dt>Token transport</dt><dd>HttpOnly cookie</dd></div>
+                    <div><dt>CSRF posture</dt><dd>SameSite=Lax</dd></div>
+                </dl>
+            </article>
+        </section>
+
+        <section class="flow-card">
+            <h3>How your session works</h3>
+            <ol class="flow">
+                <li><span>1</span> Credentials checked against the stored bcrypt hash</li>
+                <li><span>2</span> Server signs a JWT (HS256, 30-minute expiry)</li>
+                <li><span>3</span> Token is set as an HttpOnly, SameSite cookie</li>
+                <li><span>4</span> Every request re-verifies the token before rendering</li>
+            </ol>
+        </section>
+    </main>
+</body>
+</html>

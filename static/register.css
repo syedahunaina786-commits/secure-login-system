@@ -1,0 +1,38 @@
+/* ============================================================
+   Register page — page-specific styles
+   ============================================================ */
+
+/* Slightly wider card for the longer form */
+.auth-card--wide { width: min(470px, 100%); }
+
+/* Live password-strength checklist */
+.pw-checklist {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 0.9rem;
+    margin: -0.35rem 0 1.1rem;
+}
+.pw-checklist li {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    transition: color 0.2s;
+}
+.pw-checklist li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #334155;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.pw-checklist li.met { color: var(--success); }
+.pw-checklist li.met::before {
+    background: var(--success);
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+}
+
+@media (max-width: 420px) {
+    .pw-checklist { grid-template-columns: 1fr; }
+}

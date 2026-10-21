@@ -1,0 +1,20 @@
+/* ============================================================
+   Login page — page-specific styles
+   ============================================================ */
+
+/* Card entrance animation */
+.auth-card { animation: card-in 0.5s ease both; }
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Slow pulsing glow behind the logo */
+.brand-mark { animation: brand-glow 3.2s ease-in-out infinite; }
+@keyframes brand-glow {
+    0%, 100% { box-shadow: 0 8px 24px rgba(124, 92, 255, 0.40); }
+    50%      { box-shadow: 0 8px 34px rgba(34, 211, 238, 0.45); }
+}
+
+/* Slight letterspacing on the submit button */
+.auth-form .btn--primary { letter-spacing: 0.02em; }
