@@ -66,7 +66,10 @@
                     <div><dt>Issued at</dt><dd>{{ issued_at }}</dd></div>
                     <div><dt>Expires at</dt><dd>{{ expires_at }}</dd></div>
                 </dl>
-<div class="meter"><span style="width: {{ session_percent }}%;"></span></div>
+<div class="meter">
+    <span style="--progress: {{ session_percent }}%; width: var(--progress);"></span>
+</div>
+
                 <p class="meter-note">{{ minutes_left }} minute(s) of session left</p>
             </article>
 
