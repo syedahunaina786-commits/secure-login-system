@@ -410,3 +410,7 @@ if __name__ == "__main__":
     )
     # Vercel requirements handler
 handler = app
+@app.get("/")
+def read_root():
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/login")
